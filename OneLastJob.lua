@@ -4,12 +4,19 @@
 -----------------------------------------------------------------------------------------------
  
 require "Window"
+require "MatchingGame"
  
 -----------------------------------------------------------------------------------------------
 -- OneLastJob Module Definition
 -----------------------------------------------------------------------------------------------
 local OneLastJob = {} 
- 
+
+-----------------------------------------------------------------------------------------------
+-- Local Variables
+-----------------------------------------------------------------------------------------------
+local introEnabled = false
+local victoryEnabled = false
+
 -----------------------------------------------------------------------------------------------
 -- Constants
 -----------------------------------------------------------------------------------------------
@@ -46,6 +53,9 @@ end
 -- OneLastJob OnLoad
 -----------------------------------------------------------------------------------------------
 function OneLastJob:OnLoad()
+	--EVENT REGISTRATION
+	Apollo.RegisterEventHandler("MatchFinished", "OnMatchFinished", self)
+
     -- load our form file
 	self.xmlDoc = XmlDoc.CreateFromFile("OneLastJob.xml")
 	self.xmlDoc:RegisterCallback("OnDocLoaded", self)
@@ -62,10 +72,6 @@ function OneLastJob:OnDocLoaded()
 			Apollo.AddAddonErrorText(self, "Could not load the main window for some reason.")
 			return
 		end
-		
-		-- item list
-		self.wndItemList = self.wndMain:FindChild("ItemList")
-	    self.wndMain:Show(false, true)
 
 		-- if the xmlDoc is no longer needed, you should set it to nil
 		-- self.xmlDoc = nil
@@ -73,8 +79,6 @@ function OneLastJob:OnDocLoaded()
 		-- Register handlers for events, slash commands and timer, etc.
 		-- e.g. Apollo.RegisterEventHandler("KeyDown", "OnKeyDown", self)
 		Apollo.RegisterSlashCommand("onelastjob", "OnOneLastJobOn", self)
-
-		self.timer = ApolloTimer.Create(1.0, true, "OnTimer", self)
 
 		-- Do additional Addon initialization here
 	end
@@ -88,14 +92,25 @@ end
 -- on SlashCommand "/onelastjob"
 function OneLastJob:OnOneLastJobOn()
 	self.wndMain:Invoke() -- show the window
-	
-	-- populate the item list
-	self:PopulateItemList()
+end
+
+
+-- on PVP Match entered
+function OneLastJob:OnMatchEntered()
+	if introEnabled then
+		Sound.PlayFile()
+		--self.timer = ApolloTimer.Create(60, false, "OnIntroMusicComplete", self)
+	end
+	self.timer = ApolloTimer.Create(60, false, "OnIntroMusicComplete", self)
 end
 
 -- on timer
 function OneLastJob:OnTimer()
 	-- Do your timer-related stuff here.
+end
+
+function OneLastJob:OnIntroMusicComplete()
+	Print("MUSIC ENDS NOW")
 end
 
 
