@@ -97,11 +97,17 @@ end
 
 -- on PVP Match entered
 function OneLastJob:OnMatchEntered()
+	Print("MUSIC PLAYS NOW")
 	if introEnabled then
 		Sound.PlayFile()
 		--self.timer = ApolloTimer.Create(60, false, "OnIntroMusicComplete", self)
 	end
-	self.timer = ApolloTimer.Create(60, false, "OnIntroMusicComplete", self)
+	self.introTimer = ApolloTimer.Create(60, false, "OnIntroMusicComplete", self)
+end
+
+function OneLastJob:OnMatchFinished()
+	Print("MUSIC PLAYS NOW")
+	self.endTimer = ApolloTimer.Create(60, false, "OnFinishMusicComplete", self)
 end
 
 -- on timer
@@ -110,6 +116,10 @@ function OneLastJob:OnTimer()
 end
 
 function OneLastJob:OnIntroMusicComplete()
+	Print("MUSIC ENDS NOW")
+end
+
+function OneLastJob:OnFinishMusicComplete()
 	Print("MUSIC ENDS NOW")
 end
 
