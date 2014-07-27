@@ -16,6 +16,9 @@ local OneLastJob = {}
 -----------------------------------------------------------------------------------------------
 local introEnabled = false
 local victoryEnabled = false
+local mySongs = {'small.wav', '2fast2.wav'}
+local isPlaying = false
+
 
 -----------------------------------------------------------------------------------------------
 -- Constants
@@ -92,6 +95,9 @@ end
 -- Define general functions here
 
 -- on SlashCommand "/onelastjob"
+
+
+
 function OneLastJob:OnOneLastJobOn()
 	
 	self.wndMain:Invoke() -- show the window
@@ -101,31 +107,37 @@ function OneLastJob:OnOneLastJobOn()
 
 end
 
-function OneLastJob:OnPlay()
-	Print("PLAY NOW")
-	Sound.PlayFile("small.wav")
+function OneLastJob:OnChangeIsPlaying()
+	isPlaying = false
 end
 
-function OneLastJob:OnPlayIntro()
-	Print("PLAY NOW")
-	Sound.PlayFile("2Fast.wav")
+function OneLastJob:OnPlay()
+	if isPlaying == false then
+		local song = mySongs[ math.random(#mySongs) ]
+	    Print(song)
+	    Sound.PlayFile(song)
+	    isPlaying = true
+        Print("PLAY NOW")
+        self.introTimer = ApolloTimer.Create(30, false, "OnChangeIsPlaying", self)
+	end
+	
 end
 
 
 -- on PVP Match entered
 function OneLastJob:OnMatchEntered()
-	Print("MUSIC PLAYS NOW")
-	Sound.PlayFile('small.wav')
+	local song = mySongs[ math.random(#mySongs) ]
 	if introEnabled then
-		Sound.PlayFile('small.wav')
+		Sound.PlayFile(song)
 		--self.timer = ApolloTimer.Create(60, false, "OnIntroMusicComplete", self)
 	end
-	self.introTimer = ApolloTimer.Create(10, false, "OnPlayIntro", self)
+	self.introTimer = ApolloTimer.Create(30, false, "OnPlay", self)
 end
 
 function OneLastJob:OnMatchFinished()
+	local song = mySongs[ math.random(#mySongs) ]
 	Print("MUSIC PLAYS NOW")
-	Sound.PlayFile('small.wav')
+	Sound.PlayFile(song)
 	self.endTimer = ApolloTimer.Create(60, false, "OnFinishMusicComplete", self)
 end
 
