@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Addon Author="Ryan Milvenan" APIVersion="9" Name="OneLastJob" Description="">
-    <Script Name="OneLastJob.lua"/>
-    <Form Name="OneLastJob.xml"/>
+<Addon Author="Ryan and Sam" APIVersion="9" Name="OneLastJob2" Description="">
+    <Script Name="OneLastJob2.lua"/>
+    <Form Name="OneLastJob2.xml"/>
 </Addon>
