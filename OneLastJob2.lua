@@ -16,7 +16,7 @@ local OneLastJob = {}
 -----------------------------------------------------------------------------------------------
 local introEnabled = false
 local victoryEnabled = false
-local mySongs = {'small.wav', '2fast2.wav', 'Hands in the Air by 8Ball.wav'}
+local mySongs = {'small.wav', '2fast2.wav', 'Hands in the Air by 8Ball.wav', 'Represent by Trick Daddy.wav', 'Slum by Titty Boi.wav'}
 local isPlaying = false
 
 
