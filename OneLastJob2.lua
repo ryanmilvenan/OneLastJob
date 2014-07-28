@@ -114,10 +114,9 @@ end
 function OneLastJob:OnPlay()
 	if isPlaying == false then
 		local song = mySongs[ math.random(#mySongs) ]
-	    Print(song)
+	    Print(song..' is now playing')
 	    Sound.PlayFile(song)
 	    isPlaying = true
-        Print("PLAY NOW")
         self.introTimer = ApolloTimer.Create(30, false, "OnChangeIsPlaying", self)
 	end
 	
