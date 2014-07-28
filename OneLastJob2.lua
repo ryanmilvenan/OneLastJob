@@ -5,6 +5,8 @@
  
 require "Window"
 require "MatchingGame"
+require "ChatSystemLib"
+require "ChatChannelLib"
  
 -----------------------------------------------------------------------------------------------
 -- OneLastJob Module Definition
@@ -67,6 +69,7 @@ function OneLastJob:OnLoad()
 	--EVENT REGISTRATION
 	Apollo.RegisterEventHandler("MatchEntered", "OnMatchEntered", self)
 	Apollo.RegisterEventHandler("MatchFinished", "OnMatchFinished", self)
+	Apollo.RegisterEventHandler("ChatMessage","OnChatMessage", self)
 
     -- load our form file
 	self.xmlDoc = XmlDoc.CreateFromFile("OneLastJob2.xml")
@@ -91,10 +94,13 @@ function OneLastJob:OnDocLoaded()
 		-- Register handlers for events, slash commands and timer, etc.
 		-- e.g. Apollo.RegisterEventHandler("KeyDown", "OnKeyDown", self)
 		Apollo.RegisterSlashCommand("onelastjob", "OnOneLastJobOn", self)
-		Apollo.RegisterSlashCommand("play", "OnPlay", self)
+		Apollo.RegisterSlashCommand("play", "OnSyncPlaylist", self)
 		Apollo.RegisterSlashCommand("stop", "OnStop", self)
+		Apollo.RegisterSlashCommand("testsend", "OnTestSend", self)
 
 		-- Do additional Addon initialization here
+		--Create Chat Channel for Cross-Addon Communication
+		ChatSystemLib.JoinChannel("OneLastSync");
 	end
 end
 
@@ -116,11 +122,32 @@ function OneLastJob:OnOneLastJobOn()
 
 end
 
+
+--------------
+--Chat Parsing
+--------------
 function OneLastJob:OnChangeIsPlaying()
 	isPlaying = false
 end
 
-function OneLastJob:OnPlay()
+function OneLastJob:OnChatMessage(channelCurrent, tMessage)
+	local message = tMessage.arMessageSegments[1].strText
+	
+	if channelCurrent:GetName() == "OneLastSync" then	
+		OneLastJob:OnPlay(message)
+	end
+end
+
+function OneLastJob:OnSyncPlaylist()
+	local trackNumber = math.random(#mySongs)
+	for _,channel in pairs(ChatSystemLib.GetChannels()) do
+		if channel:GetName() == "OneLastSync" then
+			channel:Send(trackNumber)
+		end
+	end
+end
+
+function OneLastJob:OnPlay(trackNumber)
 	if isPlaying == false then
 		local song = mySongs[ math.random(#mySongs) ]
 	    Print(song..' is now playing')
@@ -137,6 +164,14 @@ function OneLastJob:OnStop()
 	Print('Playing Stopped')
 	self.Timer = ApolloTimer.Create(.1, false, "OnRestoreVolumeLevels", self)
 	isPlaying = false
+end
+
+function OneLastJob:OnTestSend()
+	for _,channel in pairs(ChatSystemLib.GetChannels()) do
+		if channel:GetName() == "OneLastSync" then
+
+		end
+	end
 end
 
 function OneLastJob:OnRestoreVolumeLevels()
