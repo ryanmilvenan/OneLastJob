@@ -20,7 +20,7 @@ local mySongs = {'small.wav', '2fast2.wav', 'Hands in the Air by 8Ball.wav',
 				 'Represent by Trick Daddy.wav', 'Slum by Titty Boi.wav', 
 				 'Block Reincarnated by Shawnna.wav', "Rollin on 20's by Lil' Flip.wav"}
 local isPlaying = false
-
+local originalVolumeLevel = 1
 
 -----------------------------------------------------------------------------------------------
 -- Constants
@@ -126,12 +126,16 @@ function OneLastJob:OnPlay()
 end
 
 function OneLastJob:OnStop()
-	self.originalVolumeLevel = Apollo.GetConsoleVariable("sound.volumeUI")
+	originalVolumeLevel = Apollo.GetConsoleVariable("sound.volumeUI")
 	Apollo.SetConsoleVariable("sound.volumeUI", 0)
 	Print('Playing Stopped')
-	Apollo.SetConsoleVariable("sound.volumeUI", oringalVolumeLevel)
-	isPlaying = false
+	self.Timer = ApolloTimer.Create(1, false, "OnRestoreVolumeLevels", self)
 end
+
+function OneLastJob:OnRestoreVolumeLevels()
+	Apollo.SetConsoleVariable("sound.volumeUI", originalVolumeLevel)
+end
+
 
 
 -- on PVP Match entered
@@ -140,7 +144,7 @@ function OneLastJob:OnMatchEntered()
 end
 
 function OneLastJob:OnMatchFinished()
-	self.imer = ApolloTimer.Create(1, false, "OnPlay", self)
+	self.Timer = ApolloTimer.Create(1, false, "OnPlay", self)
 end
 
 
