@@ -16,7 +16,9 @@ local OneLastJob = {}
 -----------------------------------------------------------------------------------------------
 local introEnabled = false
 local victoryEnabled = false
-local mySongs = {'small.wav', '2fast2.wav', 'Hands in the Air by 8Ball.wav', 'Represent by Trick Daddy.wav', 'Slum by Titty Boi.wav'}
+local mySongs = {'small.wav', '2fast2.wav', 'Hands in the Air by 8Ball.wav', 
+				 'Represent by Trick Daddy.wav', 'Slum by Titty Boi.wav', 
+				 'Block Reincarnated by Shawnna.wav', "Rollin on 20's by Lil' Flip.wav"}
 local isPlaying = false
 
 
@@ -84,6 +86,7 @@ function OneLastJob:OnDocLoaded()
 		-- e.g. Apollo.RegisterEventHandler("KeyDown", "OnKeyDown", self)
 		Apollo.RegisterSlashCommand("onelastjob", "OnOneLastJobOn", self)
 		Apollo.RegisterSlashCommand("play", "OnPlay", self)
+		Apollo.RegisterSlashCommand("stop", "OnStop", self)
 
 		-- Do additional Addon initialization here
 	end
@@ -117,20 +120,30 @@ function OneLastJob:OnPlay()
 	    Print(song..' is now playing')
 	    Sound.PlayFile(song)
 	    isPlaying = true
-        self.introTimer = ApolloTimer.Create(30, false, "OnChangeIsPlaying", self)
+        self.Timer = ApolloTimer.Create(1, false, "OnChangeIsPlaying", self)
 	end
 	
+end
+
+function OneLastJob:OnStop()
+	self.originalVolumeLevel = Apollo.GetConsoleVariable("sound.volumeUI")
+	Apollo.SetConsoleVariable("sound.volumeUI", 0)
+	Print('Playing Stopped')
+	Apollo.SetConsoleVariable("sound.volumeUI", oringalVolumeLevel)
+	isPlaying = false
 end
 
 
 -- on PVP Match entered
 function OneLastJob:OnMatchEntered()
-	self.introTimer = ApolloTimer.Create(30, false, "OnPlay", self)
+	self.Timer = ApolloTimer.Create(30, false, "OnPlay", self)
 end
 
 function OneLastJob:OnMatchFinished()
-	self.intoTimer = ApolloTimer.Create(1, false, "OnPlay", self)
+	self.imer = ApolloTimer.Create(1, false, "OnPlay", self)
 end
+
+
 
 -- on timer
 function OneLastJob:OnTimer()
