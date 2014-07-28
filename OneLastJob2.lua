@@ -125,32 +125,16 @@ end
 
 -- on PVP Match entered
 function OneLastJob:OnMatchEntered()
-	local song = mySongs[ math.random(#mySongs) ]
-	if introEnabled then
-		Sound.PlayFile(song)
-		--self.timer = ApolloTimer.Create(60, false, "OnIntroMusicComplete", self)
-	end
 	self.introTimer = ApolloTimer.Create(30, false, "OnPlay", self)
 end
 
 function OneLastJob:OnMatchFinished()
-	local song = mySongs[ math.random(#mySongs) ]
-	Print("MUSIC PLAYS NOW")
-	Sound.PlayFile(song)
-	self.endTimer = ApolloTimer.Create(60, false, "OnFinishMusicComplete", self)
+	self.intoTimer = ApolloTimer.Create(1, false, "OnPlay", self)
 end
 
 -- on timer
 function OneLastJob:OnTimer()
 	-- Do your timer-related stuff here.
-end
-
-function OneLastJob:OnIntroMusicComplete()
-	Print("MUSIC ENDS NOW")
-end
-
-function OneLastJob:OnFinishMusicComplete()
-	Print("MUSIC ENDS NOW")
 end
 
 
