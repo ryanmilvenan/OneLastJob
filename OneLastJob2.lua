@@ -147,9 +147,11 @@ function OneLastJob:OnSyncPlaylist()
 	end
 end
 
-function OneLastJob:OnPlay(trackNumber)
+function OneLastJob:OnPlay(trackNumberStr)
 	if isPlaying == false then
-		local song = mySongs[ math.random(#mySongs) ]
+		--local song = mySongs[ math.random(#mySongs) ]
+		local trackNumber = tonumber(trackNumberStr)
+		local song = mySongs[ trackNumber ]
 	    Print(song..' is now playing')
 	    Sound.PlayFile(song)
 	    isPlaying = true
