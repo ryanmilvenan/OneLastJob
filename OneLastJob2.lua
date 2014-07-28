@@ -19,12 +19,12 @@ local victoryEnabled = false
 local mySongs = {'small.wav', '2fast2.wav', 'Hands in the Air by 8Ball.wav', 
 				 'Represent by Trick Daddy.wav', 'Slum by Titty Boi.wav', 
 				 'Block Reincarnated by Shawnna.wav', "Rollin on 20's by Lil' Flip.wav",
-				  'Assembling the Team', 'Click Click Boom by Saliva', "Dominic's Story", 
-				  'Fast and Furious by Ja Rule', 'Furiously Dangerous', 
-				  'Hey Mami by FannyPack', "Life Ain't a Game by Ja Rule",
-				  'Lock it Down by Digital Assasins', 'Polkas Palabras by Molotov',
-				  'Rollin by Limp Bizkit', 'Saucin', 'Six Days by Dj Shadow and Mos Def',
-				  'Suicide by Scarface', 'Tokyo Drift by Teriyaki Boyz'}
+				 'Assembling the Team.wav', 'Click Click Boom by Saliva.wav', "Dominic's Story.wav", 
+				 'Fast and Furious by Ja Rule.wav', 'Furiously Dangerous.wav', 
+				 'Hey Mami by FannyPack.wav', "Life Ain't a Game by Ja Rule.wav",
+				 'Lock it Down by Digital Assasins.wav', 'Polkas Palabras by Molotov.wav',
+				 'Rollin by Limp Bizkit.wav', 'Saucin.wav', 'Six Days by Dj Shadow and Mos Def.wav',
+				 'Suicide by Scarface.wav', 'Tokyo Drift by Teriyaki Boyz.wav'}
 local isPlaying = false
 local originalVolumeLevel = 1
 
