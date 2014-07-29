@@ -173,14 +173,6 @@ function OneLastJob:OnStop()
 	isPlaying = false
 end
 
-function OneLastJob:OnTestSend()
-	for _,channel in pairs(ChatSystemLib.GetChannels()) do
-		if channel:GetName() == "OneLastSync" then
-
-		end
-	end
-end
-
 function OneLastJob:OnRestoreVolumeLevels()
 	Apollo.SetConsoleVariable("sound.volumeUI", originalVolumeLevel)
 end
@@ -189,11 +181,19 @@ end
 
 -- on PVP Match entered
 function OneLastJob:OnMatchEntered()
-	self.Timer = ApolloTimer.Create(30, false, "OnPlay", self)
+	if GroupLib.InGroup() and GroupLib.AmILeader() then
+		self.Timer = ApolloTimer.Create(30, false, "OnSyncPlaylist", self)
+	elseif not GroupLib.InGroup() then 
+		self.Timer = ApolloTimer.Create(30, false, "OnSyncPlaylist", self)
+	end
 end
 
 function OneLastJob:OnMatchFinished()
-	self.Timer = ApolloTimer.Create(1, false, "OnPlay", self)
+	if GroupLib.InGroup() and GroupLib.AmILeader() then
+		self.Timer = ApolloTimer.Create(30, false, "OnSyncPlaylist", self)
+	elseif not GroupLib.InGroup() then
+		self.Timer = ApolloTimer.Create(30, false, "OnSyncPlaylist", self)
+	end
 end
 
 
