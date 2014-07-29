@@ -19,6 +19,7 @@ local OneLastJob = {}
 -----------------------------------------------------------------------------------------------
 local introEnabled = false
 local victoryEnabled = false
+local leader = false
 local mySongs = {'small.wav', '2fast2.wav', 'Hands in the Air by 8Ball.wav', 
 				 'Represent by Trick Daddy.wav', 'Slum by Titty Boi.wav', 
 				 'Block Reincarnated by Shawnna.wav', "Rollin on 20's by Lil' Flip.wav",
@@ -68,6 +69,7 @@ end
 -----------------------------------------------------------------------------------------------
 function OneLastJob:OnLoad()
 	--EVENT REGISTRATION
+	Apollo.RegisterEventHandler("MatchingGameReady", "OnMatchReady", self)
 	Apollo.RegisterEventHandler("MatchEntered", "OnMatchEntered", self)
 	Apollo.RegisterEventHandler("MatchFinished", "OnMatchFinished", self)
 	Apollo.RegisterEventHandler("ChatMessage","OnChatMessage", self)
@@ -180,30 +182,32 @@ end
 
 
 
--- on PVP Match entered
-function OneLastJob:OnMatchEntered()
+-- PVP EVENTS
+function OneLastJob:OnMatchReady()
 	if GroupLib.InGroup() and GroupLib.AmILeader() then
-		self.Timer = ApolloTimer.Create(30, false, "OnSyncPlaylist", self)
+		leader = true
+		Print("You are the group leader")
+		Print("Leader is "..tostring(leader))
 	elseif not GroupLib.InGroup() then 
+		leader = true
+		Print("You are not in a group, but you are still the leader")
+		Print("Leader is "..tostring(leader))
+	end
+end
+
+function OneLastJob:OnMatchEntered()
+	Print("If I said I was leader that would be "..tostring(leader))
+	if leader then
 		self.Timer = ApolloTimer.Create(30, false, "OnSyncPlaylist", self)
 	end
 end
 
 function OneLastJob:OnMatchFinished()
-	if GroupLib.InGroup() and GroupLib.AmILeader() then
-		self.Timer = ApolloTimer.Create(30, false, "OnSyncPlaylist", self)
-	elseif not GroupLib.InGroup() then
-		self.Timer = ApolloTimer.Create(30, false, "OnSyncPlaylist", self)
+	if leader then
+		OneLastJob:OnSyncPlaylist()
 	end
+	leader = false
 end
-
-
-
--- on timer
-function OneLastJob:OnTimer()
-	-- Do your timer-related stuff here.
-end
-
 
 -----------------------------------------------------------------------------------------------
 -- OneLastJobForm Functions
@@ -217,76 +221,6 @@ end
 function OneLastJob:OnCancel()
 	self.wndMain:Close() -- hide the window
 end
-
-
------------------------------------------------------------------------------------------------
--- ItemList Functions
------------------------------------------------------------------------------------------------
--- populate item list
-function OneLastJob:PopulateItemList()
-	-- make sure the item list is empty to start with
-	self:DestroyItemList()
-	
-    -- add 20 items
-	for i = 1,20 do
-        self:AddItem(i)
-	end
-	
-	-- now all the item are added, call ArrangeChildrenVert to list out the list items vertically
-	self.wndItemList:ArrangeChildrenVert()
-end
-
--- clear the item list
-function OneLastJob:DestroyItemList()
-	-- destroy all the wnd inside the list
-	for idx,wnd in ipairs(self.tItems) do
-		wnd:Destroy()
-	end
-
-	-- clear the list item array
-	self.tItems = {}
-	self.wndSelectedListItem = nil
-end
-
--- add an item into the item list
-function OneLastJob:AddItem(i)
-	-- load the window item for the list item
-	local wnd = Apollo.LoadForm(self.xmlDoc, "ListItem", self.wndItemList, self)
-	
-	-- keep track of the window item created
-	self.tItems[i] = wnd
-
-	-- give it a piece of data to refer to 
-	local wndItemText = wnd:FindChild("Text")
-	if wndItemText then -- make sure the text wnd exist
-		wndItemText:SetText("item " .. i) -- set the item wnd's text to "item i"
-		wndItemText:SetTextColor(kcrNormalText)
-	end
-	wnd:SetData(i)
-end
-
--- when a list item is selected
-function OneLastJob:OnListItemSelected(wndHandler, wndControl)
-    -- make sure the wndControl is valid
-    if wndHandler ~= wndControl then
-        return
-    end
-    
-    -- change the old item's text color back to normal color
-    local wndItemText
-    if self.wndSelectedListItem ~= nil then
-        wndItemText = self.wndSelectedListItem:FindChild("Text")
-        wndItemText:SetTextColor(kcrNormalText)
-    end
-    
-	-- wndControl is the item selected - change its color to selected
-	self.wndSelectedListItem = wndControl
-	wndItemText = self.wndSelectedListItem:FindChild("Text")
-    wndItemText:SetTextColor(kcrSelectedText)
-    
-	Print( "item " ..  self.wndSelectedListItem:GetData() .. " is selected.")
-end
-
 
 -----------------------------------------------------------------------------------------------
 -- OneLastJob Instance
