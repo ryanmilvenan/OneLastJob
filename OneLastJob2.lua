@@ -7,6 +7,7 @@ require "Window"
 require "MatchingGame"
 require "ChatSystemLib"
 require "ChatChannelLib"
+require "GroupLib"
  
 -----------------------------------------------------------------------------------------------
 -- OneLastJob Module Definition
