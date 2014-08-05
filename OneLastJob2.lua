@@ -28,7 +28,19 @@ local mySongs = {'small.wav', '2fast2.wav', 'Hands in the Air by 8Ball.wav',
 				 'Hey Mami by FannyPack.wav', "Life Ain't a Game by Ja Rule.wav",
 				 'Lock it Down by Digital Assasins.wav', 'Polkas Palabras by Molotov.wav',
 				 'Rollin by Limp Bizkit.wav', 'Saucin.wav', 'Six Days by Dj Shadow and Mos Def.wav',
-				 'Suicide by Scarface.wav', 'Tokyo Drift by Teriyaki Boyz.wav'}
+				 'Suicide by Scarface.wav', 'Tokyo Drift by Teriyaki Boyz.wav', 'Bawitaba by Kid Rock.wav',
+				 'Brian Saves Dom.wav', 'Cho Large by Teriyaki Boyz.wav', 'Crawling in the Dark by Hoobastank.wav', 
+				 'Debonaire by Dope.wav', 'Ditch the Fuzz.wav', 'Enter the Eclipse.wav',
+				 'Get Back by Ludacris.wav', "Gettin' It by Chingy.wav", 'Hell Yeah by Dead Prez.wav', 'Hot Fuji.wav',
+				 'Megaton.wav', 'Move Bitch by Ludacris.wav', 'Mustang Rismo by Brian Tyler feat Slash.wav', 
+				 'Number One Spot by Ludacris.wav', 'Oye by Pit Bull.wav', 'Peel Off by Jin.wav', 
+				 'Pov City Anthem by Caddillac Tah and Ja Rule.wav', 'Pump It Up by Joe Budden.wav',
+				 'Put It On Me by Ja Rule.wav', 'Race Against Time Part 2 by Tank and Ja Rule.wav', 'Race Wars.wav'
+				 'Resound by Dragon Ash.wav', 'Restless by Evil Nine.wav', 'Rollout by Ludacris.wav',
+				 'Saturday by Ludacris.wav', 'Shade Sheist by Cali Diseaz.wav', "Speed of Light(Dominic's Story Part 2).wav", 
+				 'Stand Up by Ludacris.wav', 'The Team Arrives.wav', 'Title Sequence(Vocals).wav', 
+				 'Tudunn Tudunn Tudunn(Make U Jump) by Funkmaster Flex.wav', "What's Your Fantasy by Ludacris.wav", 
+				 "You'll Be Under My Wheels by The Prodigy.wav"}
 local isPlaying = false
 local originalVolumeLevel = 1
 
