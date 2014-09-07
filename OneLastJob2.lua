@@ -182,7 +182,7 @@ function OneLastJob:OnPlay(trackNumberStr)
 		sendEmoteMessage(" is now playing: " .. songString )
 		
 				
-		self.wndMain:FindChild("Text"):SetText(songString)
+		--self.wndMain:FindChild("Text"):SetText(songString)
 		--self.wndMain:FFindChild("OneLastJob2Form"):GetChild("PlayTxt"):SetText('songStrin')
 		
 				
