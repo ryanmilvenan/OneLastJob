@@ -2,7 +2,10 @@
 -- Client Lua Script for OneLastJob
 -- Copyright (c) NCsoft. All rights reserved
 -----------------------------------------------------------------------------------------------
- 
+-- Changes
+	-- added song emote
+ 	-- added "music" folder	
+
 require "Window"
 require "MatchingGame"
 require "ChatSystemLib"
@@ -112,6 +115,8 @@ function OneLastJob:OnDocLoaded()
 		Apollo.RegisterSlashCommand("play", "OnSyncPlaylist", self)
 		Apollo.RegisterSlashCommand("stop", "OnStop", self)
 		Apollo.RegisterSlashCommand("testsend", "OnTestSend", self)
+		--Apollo.RegisterSlashCommand("olj", "", self)
+
 
 		-- Do additional Addon initialization here
 		--Create Chat Channel for Cross-Addon Communication
@@ -131,8 +136,6 @@ end
 function OneLastJob:OnOneLastJobOn()
 	
 	self.wndMain:Invoke() -- show the window
-	
-
 	Sound.PlayFile("small.wav")
 
 end
@@ -172,8 +175,19 @@ function OneLastJob:OnPlay(trackNumberStr)
 		else
 			song = mySongs[ math.random(#mySongs) ]
 		end
-	    Print(song..' is now playing')
-	    Sound.PlayFile(song)
+	    Print(song .. ' is now playing')
+		
+		--Print("debug: " .. songString )
+		local songString = string.sub(song, 1, -5 )
+		sendEmoteMessage(" is now playing: " .. songString )
+		
+				
+		self.wndMain:FindChild("Text"):SetText(songString)
+		--self.wndMain:FFindChild("OneLastJob2Form"):GetChild("PlayTxt"):SetText('songStrin')
+		
+				
+		-- added music folder	
+	    Sound.PlayFile("music/" .. song)
 	    isPlaying = true
         self.Timer = ApolloTimer.Create(1, false, "OnChangeIsPlaying", self)
 	end
@@ -229,10 +243,17 @@ function OneLastJob:OnOK()
 	self.wndMain:Close() -- hide the window
 end
 
+function OneLastJob:wndOnPlay()
+	Print("Play - ")
+end
+
 -- when the Cancel button is clicked
 function OneLastJob:OnCancel()
 	self.wndMain:Close() -- hide the window
+	Print("Type /OneLastJob to reopen window")
 end
+
+
 
 -----------------------------------------------------------------------------------------------
 -- OneLastJob Instance
