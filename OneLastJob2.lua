@@ -101,11 +101,15 @@ function OneLastJob:OnDocLoaded()
 
 	if self.xmlDoc ~= nil and self.xmlDoc:IsLoaded() then
 	    self.wndMain = Apollo.LoadForm(self.xmlDoc, "OneLastJob2Form", nil, self)
+		self.OneLastJobConf = Apollo.LoadForm(self.xmlDoc, "Conf", nil, self)
+
 		if self.wndMain == nil then
 			Apollo.AddAddonErrorText(self, "Could not load the main window for some reason.")
 			return
 		end
 
+		self.wndMain:Show(true, false)
+		self.OneLastJobConf:Show(false, false)
 		-- if the xmlDoc is no longer needed, you should set it to nil
 		-- self.xmlDoc = nil
 		
@@ -151,10 +155,11 @@ end
 function OneLastJob:OnChatMessage(channelCurrent, tMessage)
 	local message = tMessage.arMessageSegments[1].strText
 	
-	if channelCurrent:GetName() == "OneLastSync" then	
-		OneLastJob:OnPlay(message)
+	-- Sync Play option needed.
+		if channelCurrent:GetName() == "OneLastSync" then	
+			OneLastJob:OnPlay(message)
+		end
 	end
-end
 
 function OneLastJob:OnSyncPlaylist()
 	local trackNumber = math.random(#mySongs)
@@ -238,22 +243,23 @@ end
 -----------------------------------------------------------------------------------------------
 -- OneLastJobForm Functions
 -----------------------------------------------------------------------------------------------
--- when the OK button is clicked
-function OneLastJob:OnOK()
-	self.wndMain:Close() -- hide the window
-end
 
-function OneLastJob:wndOnPlay()
-	Print("Play - ")
-end
-
--- when the Cancel button is clicked
+-- when the X button is clicked
 function OneLastJob:OnCancel()
 	self.wndMain:Close() -- hide the window
 	Print("Type /OneLastJob to reopen window")
 end
+-----------------------------------------------------------------------------------------------
+-- OneLastJobForm Conf Functions 
+-----------------------------------------------------------------------------------------------
 
+function OneLastJob:OneLastJobConfOn( wndHandler, wndControl, eMouseButton )
+self.OneLastJobConf:Show(true, false)
+end
 
+function OneLastJob:ConfOK( wndHandler, wndControl, eMouseButton )
+self.OneLastJobConf:Show(false, false)
+end
 
 -----------------------------------------------------------------------------------------------
 -- OneLastJob Instance
