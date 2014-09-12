@@ -388,6 +388,8 @@ end
 -- when the Cancel button is clicked
 function OneLastJob:OnCancel()
 	self.wndMain:Close() -- hide the window
+	Print("Type /onelastjob to reopen.")
+	
 end
 
 -----------------------------------------------------------------------------------------------
