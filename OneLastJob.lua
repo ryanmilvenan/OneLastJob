@@ -323,9 +323,10 @@ end
 function OneLastJob:OnStop()
 	originalVolumeLevel = Apollo.GetConsoleVariable("sound.volumeUI")
 	Apollo.SetConsoleVariable("sound.volumeUI", 0)
-	Print('Playing Stopped')
+	--Print('Playing Stopped')
 	self.Timer = ApolloTimer.Create(.1, false, "OnRestoreVolumeLevels", self)
 	isPlaying = false
+	self.wndMain:FindChild("SongText"):SetText("No Song Playing")
 end
 
 function OneLastJob:OnRestoreVolumeLevels()
