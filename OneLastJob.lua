@@ -257,8 +257,17 @@ end
 function OneLastJob:OnChatMessage(channelCurrent, tMessage)
 	local message = tMessage.arMessageSegments[1].strText
 	
-	
-	if self.userSettings.playSync == true then
+		if self.userSettings.playSync == true then
+		local trackNumber = tonumber(message)
+		local song
+		 if(type(trackNumber) == 'number') then
+			song = mySongs[ trackNumber ]
+		 else
+			song = mySongs[ math.random(#mySongs) ]
+		 end
+		local songString = string.sub(song, 1, -5 )
+		
+	self.wndMain:FindChild("SongText"):SetText("Playing: " .. songString)
 		if channelCurrent:GetName() == "OneLastSync" then	
 			OneLastJob:OnPlay(message)
 		end
