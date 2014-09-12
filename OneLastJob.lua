@@ -54,7 +54,7 @@ local mySongs = {'small.wav', '2fast2.wav', 'Hands in the Air by 8Ball.wav',
 -----------------------------------------------------------------------------------------------
 local defaultSettings = {
 	playSync = true,
-	showEmote = true,
+	showEmote = false,
 	introEnabled = false,
 	victoryEnabled = false,
 	-- need to add windows form positions 	

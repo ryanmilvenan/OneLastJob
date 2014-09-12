@@ -25,7 +25,7 @@
             <Event Name="ButtonCheck" Function="PlaySyncToggle"/>
             <Event Name="ButtonUncheck" Function="PlaySyncToggle"/>
         </Control>
-        <Control Class="Button" Base="BK3:btnHolo_Check" Font="CRB_Interface9_O" ButtonType="Check" RadioGroup="" LAnchorPoint="0" LAnchorOffset="25" TAnchorPoint="0" TAnchorOffset="95" RAnchorPoint="0" RAnchorOffset="153" BAnchorPoint="0" BAnchorOffset="123" DT_VCENTER="1" DT_CENTER="1" BGColor="UI_BtnBGDefault" TextColor="UI_BtnTextDefault" NormalTextColor="UI_BtnTextDefault" PressedTextColor="UI_BtnTextDefault" FlybyTextColor="UI_BtnTextDefault" PressedFlybyTextColor="UI_BtnTextDefault" DisabledTextColor="UI_BtnTextDefault" TooltipType="OnCursor" Name="EmoteBtn" TooltipColor="" DrawAsCheckbox="0" GlobalRadioGroup="" Tooltip="" Text="Song emote" TextId="">
+        <Control Class="Button" Base="BK3:btnHolo_Check" Font="CRB_Interface9_O" ButtonType="Check" RadioGroup="" LAnchorPoint="0" LAnchorOffset="25" TAnchorPoint="0" TAnchorOffset="95" RAnchorPoint="0" RAnchorOffset="267" BAnchorPoint="0" BAnchorOffset="123" DT_VCENTER="1" DT_CENTER="0" BGColor="UI_BtnBGDefault" TextColor="UI_BtnTextDefault" NormalTextColor="UI_BtnTextDefault" PressedTextColor="UI_BtnTextDefault" FlybyTextColor="UI_BtnTextDefault" PressedFlybyTextColor="UI_BtnTextDefault" DisabledTextColor="UI_BtnTextDefault" TooltipType="OnCursor" Name="EmoteBtn" TooltipColor="" DrawAsCheckbox="0" GlobalRadioGroup="" Tooltip="" Text="Song emote -- Buggy for some people" TextId="" DT_RIGHT="1">
             <Event Name="ButtonCheck" Function="ShowEmoteToggle"/>
             <Event Name="ButtonUncheck" Function="ShowEmoteToggle"/>
         </Control>
