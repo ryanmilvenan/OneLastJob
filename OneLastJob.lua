@@ -306,7 +306,7 @@ function OneLastJob:OnSyncPlaylist()
 		
 	self.wndMain:FindChild("SongText"):SetText("Playing: " .. songString)
 	-- emote
-		if self.userSettings.showEmote == true then
+		if self.userSettings.showEmote == true and self.userSettings.playSync == false then
 			sendEmoteMessage(" is now playing: " .. songString )
 		end
 
